@@ -1,0 +1,145 @@
+package(default_visibility = ["//visibility:public"])
+
+load(
+    "@com_github_mvukov_rules_ros2//ros2:cc_defs.bzl",
+    "ros2_cpp_binary",
+    "ros2_cpp_library",
+)
+load(
+    "@com_github_mvukov_rules_ros2//ros2:interfaces.bzl",
+    "cpp_ros2_interface_library",
+    "ros2_interface_library",
+)
+
+# 1. nav2_msgs Message Generation
+ros2_interface_library(
+    name = "nav2_msgs",
+    srcs = glob([
+        "src/navigation2/nav2_msgs/msg/**/*.msg",
+        "src/navigation2/nav2_msgs/srv/**/*.srv",
+        "src/navigation2/nav2_msgs/action/**/*.action",
+    ]),
+    deps = [
+        "@ros2_common_interfaces//:geometry_msgs",
+        "@ros2_common_interfaces//:std_msgs",
+        "@ros2_common_interfaces//:nav_msgs",
+        "@ros2_rcl_interfaces//:action_msgs",
+        "@ros2_rcl_interfaces//:builtin_interfaces",
+        "@ros2_unique_identifier_msgs//:unique_identifier_msgs",
+    ],
+)
+
+cpp_ros2_interface_library(
+    name = "cpp_nav2_msgs",
+    deps = [":nav2_msgs"],
+)
+
+# 2. nav2_util Core Library
+ros2_cpp_library(
+    name = "nav2_util",
+    srcs = [
+        "src/navigation2/nav2_util/src/costmap.cpp",
+        "src/navigation2/nav2_util/src/node_utils.cpp",
+        "src/navigation2/nav2_util/src/lifecycle_service_client.cpp",
+        "src/navigation2/nav2_util/src/string_utils.cpp",
+        "src/navigation2/nav2_util/src/lifecycle_utils.cpp",
+        "src/navigation2/nav2_util/src/lifecycle_node.cpp",
+        "src/navigation2/nav2_util/src/robot_utils.cpp",
+        "src/navigation2/nav2_util/src/node_thread.cpp",
+        "src/navigation2/nav2_util/src/odometry_utils.cpp",
+    ],
+    hdrs = glob(["src/navigation2/nav2_util/include/nav2_util/**/*.hpp"]),
+    includes = ["src/navigation2/nav2_util/include"],
+    deps = [
+        ":cpp_nav2_msgs",
+        "@ros2_rclcpp//:rclcpp",
+        "@ros2_rclcpp//:rclcpp_lifecycle",
+        "@ros2_rclcpp//:rclcpp_action",
+        "@ros2_geometry2//:tf2",
+        "@ros2_geometry2//:tf2_ros",
+        "@ros2_geometry2//:cpp_tf2_geometry_msgs",
+        "@ros2_common_interfaces//:cpp_nav_msgs",
+        "@ros2_common_interfaces//:cpp_geometry_msgs",
+        "@ros2_rcl_interfaces//:cpp_lifecycle_msgs",
+        "@system_libs//:bondcpp",
+    ],
+)
+
+# 3. map_io Shared Library
+ros2_cpp_library(
+    name = "map_io",
+    srcs = [
+        "src/navigation2/nav2_map_server/src/map_io.cpp",
+        "src/navigation2/nav2_map_server/src/map_mode.cpp",
+    ],
+    hdrs = glob(["src/navigation2/nav2_map_server/include/nav2_map_server/*.hpp"]),
+    includes = ["src/navigation2/nav2_map_server/include"],
+    deps = [
+        ":nav2_util",
+        "@ros2_common_interfaces//:cpp_nav_msgs",
+        "@ros2_geometry2//:tf2",
+        "@system_libs//:yaml-cpp",
+        "@system_libs//:graphicsmagick",
+    ],
+)
+
+# 4. map_server_core Shared Library
+ros2_cpp_library(
+    name = "map_server_core",
+    srcs = [
+        "src/navigation2/nav2_map_server/src/map_server/map_server.cpp",
+        "src/navigation2/nav2_map_server/src/map_saver/map_saver.cpp",
+        "src/navigation2/nav2_map_server/src/costmap_filter_info/costmap_filter_info_server.cpp",
+    ],
+    hdrs = glob(["src/navigation2/nav2_map_server/include/nav2_map_server/*.hpp"]),
+    includes = ["src/navigation2/nav2_map_server/include"],
+    deps = [
+        ":map_io",
+        ":nav2_util",
+        ":cpp_nav2_msgs",
+        "@ros2_rclcpp//:rclcpp",
+        "@ros2_rclcpp//:rclcpp_lifecycle",
+        "@ros2_rclcpp//:rclcpp_components",
+        "@ros2_common_interfaces//:cpp_nav_msgs",
+        "@ros2_common_interfaces//:cpp_std_msgs",
+        "@system_libs//:yaml-cpp",
+    ],
+)
+
+# 5. Executables
+ros2_cpp_binary(
+    name = "map_server",
+    srcs = ["src/navigation2/nav2_map_server/src/map_server/main.cpp"],
+    deps = [":map_server_core"],
+)
+
+ros2_cpp_binary(
+    name = "map_saver_cli",
+    srcs = ["src/navigation2/nav2_map_server/src/map_saver/main_cli.cpp"],
+    deps = [":map_server_core"],
+)
+
+ros2_cpp_binary(
+    name = "map_saver_server",
+    srcs = ["src/navigation2/nav2_map_server/src/map_saver/main_server.cpp"],
+    deps = [":map_server_core"],
+)
+
+ros2_cpp_binary(
+    name = "costmap_filter_info_server",
+    srcs = ["src/navigation2/nav2_map_server/src/costmap_filter_info/main.cpp"],
+    deps = [":map_server_core"],
+)
+
+ros2_cpp_binary(
+    name = "my_subscriber_node",
+    srcs = [
+        "src/my_component/my_subscriber.hpp",
+        "src/my_component/my_subscriber.cpp",
+    ],
+    deps = [
+        ":map_io",
+        "@ros2_rclcpp//:rclcpp",
+        "@ros2_common_interfaces//:cpp_std_msgs",
+    ],
+)

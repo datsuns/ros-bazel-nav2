@@ -1,0 +1,11 @@
+# Bazel outputs
+/bazel-*
+
+# ROS 2 build outputs
+/build/
+/install/
+/log/
+
+# Agent directory
+/.agents/
+

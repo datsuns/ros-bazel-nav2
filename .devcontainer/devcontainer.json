@@ -1,0 +1,25 @@
+{
+  "name": "ROS 2 Humble Map Server Bazel Dev",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": "."
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-vscode.cpptools",
+        "ms-iot.vscode-ros",
+        "BazelBuild.vscode-bazel"
+      ]
+    }
+  },
+  "remoteUser": "ros",
+  "runArgs": [
+    "--network=host",
+    "--ipc=host",
+    "--pid=host"
+  ],
+  "containerEnv": {
+    "ROS_DISTRO": "humble"
+  }
+}
