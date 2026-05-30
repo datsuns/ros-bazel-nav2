@@ -14,8 +14,8 @@ COMMON_DEPS = [
     "@ros2_common_interfaces//:c_geometry_msgs",
     "@ros2_common_interfaces//:cpp_nav_msgs",
     "@ros2_common_interfaces//:cpp_std_srvs",
-    "@map_server_workspace//:cpp_nav2_msgs",
-    "@map_server_workspace//:nav2_util",
+    "@nav2_msgs//:cpp_nav2_msgs",
+    "@nav2_util//:nav2_util",
     "@nav2_core//:nav2_core",
     "@nav2_behavior_tree//:nav2_behavior_tree",
     "@behaviortree_cpp_v3//:behaviortree_cpp_v3",
@@ -43,3 +43,4 @@ ros2_cpp_binary(
     visibility = ["//visibility:public"],
     deps = COMMON_DEPS + [":bt_navigator_core"],
 )
+

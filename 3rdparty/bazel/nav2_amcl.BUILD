@@ -48,7 +48,7 @@ ros2_cpp_library(
     deps = [
         ":pf_lib",
         "@ros2_pluginlib//:pluginlib",
-        "@map_server_workspace//:nav2_util",
+        "@nav2_util//:nav2_util",
         "@ros2_rclcpp//:rclcpp",
     ],
 )
@@ -85,8 +85,8 @@ COMMON_DEPS = [
     "@ros2_common_interfaces//:cpp_std_srvs",
     "@ros2_geometry2//:tf2_ros",
     "@ros2_geometry2//:tf2",
-    "@map_server_workspace//:nav2_util",
-    "@map_server_workspace//:cpp_nav2_msgs",
+    "@nav2_util//:nav2_util",
+    "@nav2_msgs//:cpp_nav2_msgs",
     "@ros2_pluginlib//:pluginlib",
 ]
 
@@ -119,3 +119,4 @@ ros2_cpp_binary(
         ":amcl_core",
     ],
 )
+

@@ -36,6 +36,7 @@ ros2_cpp_library(
         "@ros2_pluginlib//:pluginlib",
         "@ros2_rclcpp//:rclcpp",
         "@ros2_common_interfaces//:cpp_sensor_msgs",
-        "@map_server_workspace//:nav2_util",
+        "@nav2_util//:nav2_util",
     ],
 )
+

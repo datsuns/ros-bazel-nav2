@@ -30,3 +30,4 @@ genrule(
     outs = ["src/ompl/config.h"],
     cmd = "printf '#ifndef OMPL_CONFIG_\\n#define OMPL_CONFIG_\\n#define OMPL_VERSION \"1.7.0\"\\n#define OMPL_MAJOR_VERSION 1\\n#define OMPL_MINOR_VERSION 7\\n#define OMPL_PATCH_VERSION 0\\n#define OMPL_VERSION_VALUE ( OMPL_MAJOR_VERSION * 1000000 + OMPL_MINOR_VERSION * 1000 + OMPL_PATCH_VERSION)\\n#define OMPL_HAVE_FLANN 0\\n#define OMPL_HAVE_SPOT 0\\n#define OMPL_HAVE_NUMPY 0\\n#endif\\n' > $@",
 )
+

@@ -19,3 +19,4 @@ cpp_ros2_interface_library(
     visibility = ["//visibility:public"],
     deps = [":nav_2d_msgs"],
 )
+

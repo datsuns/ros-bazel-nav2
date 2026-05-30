@@ -12,8 +12,8 @@ COMMON_DEPS = [
     "@ros2_geometry2//:tf2",
     "@ros2_geometry2//:cpp_tf2_geometry_msgs",
     "@nav_2d_msgs//:cpp_nav_2d_msgs",
-    "@map_server_workspace//:cpp_nav2_msgs",
-    "@map_server_workspace//:nav2_util",
+    "@nav2_msgs//:cpp_nav2_msgs",
+    "@nav2_util//:nav2_util",
 ]
 
 # 1. conversions
@@ -47,3 +47,4 @@ ros2_cpp_library(
         ":conversions",
     ],
 )
+

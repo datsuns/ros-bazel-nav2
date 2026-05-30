@@ -7,8 +7,8 @@ load(
 COMMON_DEPS = [
     "@ros2_common_interfaces//:cpp_geometry_msgs",
     "@ros2_rcl_interfaces//:cpp_lifecycle_msgs",
-    "@map_server_workspace//:cpp_nav2_msgs",
-    "@map_server_workspace//:nav2_util",
+    "@nav2_msgs//:cpp_nav2_msgs",
+    "@nav2_util//:nav2_util",
     "@ros2_rclcpp//:rclcpp",
     "@ros2_rclcpp//:rclcpp_action",
     "@ros2_rclcpp//:rclcpp_lifecycle",
@@ -42,3 +42,4 @@ ros2_cpp_binary(
         ":nav2_lifecycle_manager_core",
     ],
 )
+

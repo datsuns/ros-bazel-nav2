@@ -6,7 +6,7 @@ load(
 
 COMMON_DEPS = [
     "@ros2_common_interfaces//:cpp_geometry_msgs",
-    "@map_server_workspace//:nav2_util",
+    "@nav2_util//:nav2_util",
     "@ros2_rclcpp//:rclcpp",
     "@ros2_rclcpp//:rclcpp_components",
 ]
@@ -30,3 +30,4 @@ ros2_cpp_binary(
         ":velocity_smoother_core",
     ],
 )
+

@@ -26,8 +26,8 @@ ros2_cpp_library(
     includes = ["include"],
     visibility = ["//visibility:public"],
     deps = [
-        "@map_server_workspace//:cpp_nav2_msgs",
-        "@map_server_workspace//:nav2_util",
+        "@nav2_msgs//:cpp_nav2_msgs",
+        "@nav2_util//:nav2_util",
         "@nav2_voxel_grid//:voxel_grid",
         "@ros2_common_interfaces//:cpp_geometry_msgs",
         "@ros2_common_interfaces//:c_geometry_msgs",
@@ -69,8 +69,8 @@ ros2_cpp_library(
     visibility = ["//visibility:public"],
     deps = [
         ":nav2_costmap_2d_core",
-        "@map_server_workspace//:cpp_nav2_msgs",
-        "@map_server_workspace//:nav2_util",
+        "@nav2_msgs//:cpp_nav2_msgs",
+        "@nav2_util//:nav2_util",
         "@nav2_voxel_grid//:voxel_grid",
         "@ros2_common_interfaces//:cpp_geometry_msgs",
         "@ros2_common_interfaces//:c_geometry_msgs",
@@ -108,8 +108,8 @@ ros2_cpp_library(
     visibility = ["//visibility:public"],
     deps = [
         ":nav2_costmap_2d_core",
-        "@map_server_workspace//:cpp_nav2_msgs",
-        "@map_server_workspace//:nav2_util",
+        "@nav2_msgs//:cpp_nav2_msgs",
+        "@nav2_util//:nav2_util",
         "@ros2_common_interfaces//:cpp_geometry_msgs",
         "@ros2_common_interfaces//:cpp_nav_msgs",
         "@ros2_common_interfaces//:cpp_std_msgs",
@@ -139,8 +139,8 @@ ros2_cpp_library(
     visibility = ["//visibility:public"],
     deps = [
         ":nav2_costmap_2d_core",
-        "@map_server_workspace//:cpp_nav2_msgs",
-        "@map_server_workspace//:nav2_util",
+        "@nav2_msgs//:cpp_nav2_msgs",
+        "@nav2_util//:nav2_util",
         "@ros2_common_interfaces//:cpp_geometry_msgs",
         "@ros2_common_interfaces//:cpp_nav_msgs",
         "@ros2_common_interfaces//:cpp_std_msgs",
@@ -183,3 +183,4 @@ ros2_cpp_binary(
         ":filters",
     ],
 )
+

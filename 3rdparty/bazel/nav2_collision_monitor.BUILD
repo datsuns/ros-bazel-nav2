@@ -7,8 +7,8 @@ load(
 COMMON_DEPS = [
     "@ros2_common_interfaces//:cpp_geometry_msgs",
     "@ros2_common_interfaces//:cpp_sensor_msgs",
-    "@map_server_workspace//:cpp_nav2_msgs",
-    "@map_server_workspace//:nav2_util",
+    "@nav2_msgs//:cpp_nav2_msgs",
+    "@nav2_util//:nav2_util",
     "@nav2_costmap_2d//:nav2_costmap_2d_core",
     "@nav2_costmap_2d//:nav2_costmap_2d_client",
     "@ros2_rclcpp//:rclcpp",
@@ -46,3 +46,4 @@ ros2_cpp_binary(
         ":collision_monitor_core",
     ],
 )
+

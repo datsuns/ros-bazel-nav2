@@ -29,3 +29,4 @@ py_binary(
     deps = [":nav2_simple_commander"],
     visibility = ["//visibility:public"],
 )
+

@@ -118,6 +118,24 @@ system_sdk_repo(name = "system_libs")
 
 # Navigation2 packages mapped externally
 new_local_repository(
+    name = "nav2_msgs",
+    path = "src/navigation2/nav2_msgs",
+    build_file = "//3rdparty/bazel:nav2_msgs.BUILD",
+)
+
+new_local_repository(
+    name = "nav2_util",
+    path = "src/navigation2/nav2_util",
+    build_file = "//3rdparty/bazel:nav2_util.BUILD",
+)
+
+new_local_repository(
+    name = "nav2_map_server",
+    path = "src/navigation2/nav2_map_server",
+    build_file = "//3rdparty/bazel:nav2_map_server.BUILD",
+)
+
+new_local_repository(
     name = "nav2_voxel_grid",
     path = "src/navigation2/nav2_voxel_grid",
     build_file = "//3rdparty/bazel:nav2_voxel_grid.BUILD",

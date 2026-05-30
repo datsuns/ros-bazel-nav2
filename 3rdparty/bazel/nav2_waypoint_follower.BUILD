@@ -10,8 +10,8 @@ COMMON_DEPS = [
     "@ros2_rclcpp//:rclcpp_lifecycle",
     "@ros2_rclcpp//:rclcpp_components",
     "@ros2_common_interfaces//:cpp_nav_msgs",
-    "@map_server_workspace//:cpp_nav2_msgs",
-    "@map_server_workspace//:nav2_util",
+    "@nav2_msgs//:cpp_nav2_msgs",
+    "@nav2_util//:nav2_util",
     "@ros2_geometry2//:tf2_ros",
     "@nav2_core//:nav2_core",
     "@ros2_pluginlib//:pluginlib",
@@ -79,3 +79,4 @@ ros2_cpp_library(
         ":waypoint_follower_core",
     ],
 )
+

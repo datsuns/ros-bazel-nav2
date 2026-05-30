@@ -31,7 +31,8 @@ ros2_cpp_library(
         "@nav_2d_utils//:tf_help",
         "@ros2_common_interfaces//:cpp_nav_msgs",
         "@ros2_geometry2//:tf2_ros",
-        "@map_server_workspace//:nav2_util",
+        "@nav2_util//:nav2_util",
         "@nav2_core//:nav2_core",
     ],
 )
+

@@ -10,12 +10,12 @@ COMMON_DEPS = [
     "@ros2_rclcpp//:rclcpp_action",
     "@ros2_rclcpp//:rclcpp_components",
     "@ros2_common_interfaces//:cpp_std_msgs",
-    "@map_server_workspace//:cpp_nav2_msgs",
+    "@nav2_msgs//:cpp_nav2_msgs",
     "@nav_2d_utils//:conversions",
     "@nav_2d_utils//:path_ops",
     "@nav_2d_utils//:tf_help",
     "@nav_2d_msgs//:cpp_nav_2d_msgs",
-    "@map_server_workspace//:nav2_util",
+    "@nav2_util//:nav2_util",
     "@nav2_core//:nav2_core",
     "@ros2_pluginlib//:pluginlib",
 ]
@@ -93,3 +93,4 @@ ros2_cpp_binary(
         ":controller_server_core",
     ],
 )
+

@@ -16,8 +16,8 @@ ros2_cpp_library(
         "@ros2_rclcpp//:rclcpp",
         "@ros2_rclcpp//:rclcpp_action",
         "@ros2_common_interfaces//:cpp_std_msgs",
-        "@map_server_workspace//:nav2_util",
-        "@map_server_workspace//:cpp_nav2_msgs",
+        "@nav2_util//:nav2_util",
+        "@nav2_msgs//:cpp_nav2_msgs",
         "@ros2_common_interfaces//:cpp_nav_msgs",
         "@ros2_common_interfaces//:cpp_geometry_msgs",
         "@ros2_common_interfaces//:c_geometry_msgs",
@@ -30,3 +30,4 @@ ros2_cpp_library(
         "@system_libs//:eigen",
     ],
 )
+

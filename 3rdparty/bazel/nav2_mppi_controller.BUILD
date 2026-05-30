@@ -14,8 +14,8 @@ COMMON_DEPS = [
     "@nav2_core//:nav2_core",
     "@nav2_costmap_2d//:nav2_costmap_2d_core",
     "@nav2_costmap_2d//:nav2_costmap_2d_client",
-    "@map_server_workspace//:nav2_util",
-    "@map_server_workspace//:cpp_nav2_msgs",
+    "@nav2_util//:nav2_util",
+    "@nav2_msgs//:cpp_nav2_msgs",
     "@ros2_geometry2//:cpp_tf2_geometry_msgs",
     "@ros2_geometry2//:tf2_eigen",
     "@ros2_geometry2//:tf2_ros",
@@ -87,3 +87,4 @@ ros2_cpp_library(
         ":mppi_controller",
     ],
 )
+

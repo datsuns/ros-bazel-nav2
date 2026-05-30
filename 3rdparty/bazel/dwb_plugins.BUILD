@@ -23,6 +23,7 @@ ros2_cpp_library(
         "@nav_2d_utils//:tf_help",
         "@ros2_pluginlib//:pluginlib",
         "@ros2_rclcpp//:rclcpp",
-        "@map_server_workspace//:nav2_util",
+        "@nav2_util//:nav2_util",
     ],
 )
+

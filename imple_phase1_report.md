@@ -22,8 +22,8 @@
 | ファイル/ディレクトリ | 内容 |
 | :--- | :--- |
 | `WORKSPACE` | プロジェクト全体のルート定義、外部リポジトリの登録。 |
-| `BUILD.bazel` | メインパッケージ (`nav2_msgs`, `nav2_util`, `map_server`) のビルドルール。 |
-| `3rdparty/bazel/` | 各 Nav2 パッケージ（`nav2_amcl.BUILD`, `nav2_costmap_2d.BUILD` 等）のビルド定義。 |
+| `BUILD.bazel` | ルートレベルの検証用ターゲット（`my_subscriber_node`等）のみを定義。 |
+| `3rdparty/bazel/` | 全ての Nav2 パッケージ（`nav2_msgs.BUILD`, `nav2_util.BUILD`, `nav2_map_server.BUILD`, `nav2_amcl.BUILD` 等）のビルド定義。 |
 | `system_sdk.bzl` | システムライブラリを Bazel にインポートするためのカスタムルール。 |
 | `patches/` | ビルドエラー回避のためのソースコード修正用パッチ。 |
 
@@ -47,7 +47,7 @@
     ```
 *   **Map Server の実行**:
     ```bash
-    bazel run //:map_server
+    bazel run @nav2_map_server//:map_server
     ```
 
 ## 9. 主要なビルドコマンド
@@ -59,7 +59,7 @@
     ```
 *   **Map Server のビルド**:
     ```bash
-    bazel build //:map_server
+    bazel build @nav2_map_server//:map_server
     ```
 *   **AMCL のビルド**:
     ```bash
@@ -71,7 +71,7 @@
     ```
 *   **メッセージパッケージ (nav2_msgs) のビルド**:
     ```bash
-    bazel build //:cpp_nav2_msgs
+    bazel build @nav2_msgs//:cpp_nav2_msgs
     ```
 *   **特定の外部リポジトリパッケージのビルド (例: voxel_grid)**:
     ```bash

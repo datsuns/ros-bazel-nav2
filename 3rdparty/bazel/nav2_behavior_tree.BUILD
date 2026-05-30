@@ -14,8 +14,8 @@ COMMON_DEPS = [
     "@ros2_common_interfaces//:cpp_geometry_msgs",
     "@ros2_common_interfaces//:c_geometry_msgs",
     "@ros2_common_interfaces//:cpp_sensor_msgs",
-    "@map_server_workspace//:cpp_nav2_msgs",
-    "@map_server_workspace//:c_nav2_msgs",
+    "@nav2_msgs//:cpp_nav2_msgs",
+    "@nav2_msgs//:c_nav2_msgs",
     "@ros2_common_interfaces//:cpp_nav_msgs",
     "@behaviortree_cpp_v3//:behaviortree_cpp_v3",
     "@ros2_geometry2//:tf2",
@@ -23,7 +23,7 @@ COMMON_DEPS = [
     "@ros2_geometry2//:cpp_tf2_geometry_msgs",
     "@ros2_common_interfaces//:cpp_std_msgs",
     "@ros2_common_interfaces//:cpp_std_srvs",
-    "@map_server_workspace//:nav2_util",
+    "@nav2_util//:nav2_util",
 ]
 
 # Core engine library
@@ -40,3 +40,4 @@ ros2_cpp_library(
 
 # Declare all BT node plugins using the helper macro
 declare_bt_nodes(COMMON_DEPS)
+
