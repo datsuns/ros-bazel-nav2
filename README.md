@@ -9,6 +9,7 @@
 | ファイル名 | 内容の要約 |
 | :--- | :--- |
 | **[README.md](README.md)** | **本ファイル**。プロジェクトのドキュメントインデックス。 |
+| **[plan_install_step.md](plan_install_step.md)** | **段階的移行プラン**。既存の colcon 環境を Bazel 成果物で順次置き換える手順。 |
 | **[how-to-run-bazel-binaries.md](how-to-run-bazel-binaries.md)** | **実行ガイド**。Bazel でビルドされた `map_server` や `amcl` などのバイナリの起動方法。 |
 | **[imple_phase1_report.md](imple_phase1_report.md)** | **移行実施レポート**。フェーズ1（主要パッケージの移行）の構成方針、ビルドコマンド、colcon との比較。 |
 | **[plan_port_to_non_ros.md](plan_port_to_non_ros.md)** | **脱 /opt/ros 計画**。`/opt/ros` への依存を削減し、ソースビルドへ移行するための計画とステータス。 |
