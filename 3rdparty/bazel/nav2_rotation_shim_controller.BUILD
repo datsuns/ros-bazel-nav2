@@ -22,7 +22,7 @@ ros2_cpp_library(
         "@nav2_core//:nav2_core",
         "@ros2_geometry2//:tf2",
         "@ros2_geometry2//:tf2_ros",
-        "@system_libs//:angles",
+        "@angles//:angles",
         "@nav2_controller//:position_goal_checker",
     ],
 )

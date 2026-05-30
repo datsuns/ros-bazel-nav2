@@ -19,9 +19,9 @@ COMMON_DEPS = [
     "@nav2_costmap_2d//:nav2_costmap_2d_core",
     "@nav2_core//:nav2_core",
     "@ros2_pluginlib//:pluginlib",
-    "@system_libs//:angles",
+    "@angles//:angles",
     "@system_libs//:eigen",
-    "@system_libs//:ompl",
+    "@ompl//:ompl",
 ]
 
 SRC_FILES = [

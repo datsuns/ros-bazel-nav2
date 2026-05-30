@@ -23,7 +23,7 @@ ros2_cpp_library(
     includes = ["include"],
     visibility = ["//visibility:public"],
     deps = [
-        "@system_libs//:angles",
+        "@angles//:angles",
         "@nav2_costmap_2d//:nav2_costmap_2d_core",
         "@costmap_queue//:costmap_queue",
         "@dwb_core//:dwb_core",

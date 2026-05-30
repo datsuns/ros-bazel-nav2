@@ -15,7 +15,7 @@ ros2_cpp_library(
     includes = ["include"],
     visibility = ["//visibility:public"],
     deps = [
-        "@system_libs//:angles",
+        "@angles//:angles",
         "@dwb_core//:dwb_core",
         "@nav_2d_msgs//:cpp_nav_2d_msgs",
         "@nav_2d_utils//:conversions",

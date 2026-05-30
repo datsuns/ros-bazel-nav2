@@ -5,7 +5,7 @@ load(
 )
 
 COMMON_DEPS = [
-    "@system_libs//:angles",
+    "@angles//:angles",
     "@ros2_rclcpp//:rclcpp",
     "@ros2_rclcpp//:rclcpp_action",
     "@ros2_rclcpp//:rclcpp_components",

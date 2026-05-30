@@ -16,7 +16,7 @@ COMMON_DEPS = [
     "@ros2_common_interfaces//:cpp_std_msgs",
     "@ros2_common_interfaces//:cpp_std_srvs",
     "@ros2_geometry2//:cpp_tf2_geometry_msgs",
-    "@system_libs//:bondcpp",
+    "@bond_core//:bondcpp",
     "@ros2_diagnostics//:cpp_diagnostic_updater",
 ]
 

@@ -45,9 +45,9 @@ ros2_cpp_library(
         "@ros2_pluginlib//:pluginlib",
         "@ros2_message_filters//:message_filters",
         "@system_libs//:eigen",
-        "@system_libs//:laser_geometry",
-        "@system_libs//:map_msgs",
-        "@system_libs//:angles",
+        "@laser_geometry//:laser_geometry",
+        "@map_msgs//:cpp_map_msgs",
+        "@angles//:angles",
         "@system_libs//:yaml-cpp",
     ],
 )
@@ -88,9 +88,9 @@ ros2_cpp_library(
         "@ros2_pluginlib//:pluginlib",
         "@ros2_message_filters//:message_filters",
         "@system_libs//:eigen",
-        "@system_libs//:laser_geometry",
-        "@system_libs//:map_msgs",
-        "@system_libs//:angles",
+        "@laser_geometry//:laser_geometry",
+        "@map_msgs//:cpp_map_msgs",
+        "@angles//:angles",
         "@system_libs//:yaml-cpp",
     ],
 )
@@ -121,8 +121,8 @@ ros2_cpp_library(
         "@ros2_geometry2//:cpp_tf2_geometry_msgs",
         "@ros2_pluginlib//:pluginlib",
         "@system_libs//:eigen",
-        "@system_libs//:map_msgs",
-        "@system_libs//:angles",
+        "@map_msgs//:cpp_map_msgs",
+        "@angles//:angles",
     ],
 )
 
@@ -152,8 +152,8 @@ ros2_cpp_library(
         "@ros2_geometry2//:cpp_tf2_geometry_msgs",
         "@ros2_pluginlib//:pluginlib",
         "@system_libs//:eigen",
-        "@system_libs//:map_msgs",
-        "@system_libs//:angles",
+        "@map_msgs//:cpp_map_msgs",
+        "@angles//:angles",
     ],
 )
 

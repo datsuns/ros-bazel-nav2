@@ -25,7 +25,7 @@ ros2_cpp_library(
         "@nav2_costmap_2d//:nav2_costmap_2d_core",
         "@nav2_core//:nav2_core",
         "@ros2_pluginlib//:pluginlib",
-        "@system_libs//:angles",
+        "@angles//:angles",
         "@system_libs//:ceres",
         "@system_libs//:eigen",
     ],

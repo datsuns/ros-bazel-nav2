@@ -67,7 +67,7 @@ ros2_cpp_library(
         "@ros2_common_interfaces//:cpp_nav_msgs",
         "@ros2_common_interfaces//:cpp_geometry_msgs",
         "@ros2_rcl_interfaces//:cpp_lifecycle_msgs",
-        "@system_libs//:bondcpp",
+        "@bond_core//:bondcpp",
     ],
 )
 

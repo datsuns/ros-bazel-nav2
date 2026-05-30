@@ -54,6 +54,63 @@ load(
 
 install_rules_ros2_pip_deps()
 
+# ROS 2 packages from source
+http_archive(
+    name = "angles",
+    build_file = "//3rdparty/bazel:angles.BUILD",
+    strip_prefix = "angles-1.15.0/angles",
+    urls = ["https://github.com/ros/angles/archive/refs/tags/1.15.0.tar.gz"],
+)
+
+http_archive(
+    name = "map_msgs",
+    build_file = "//3rdparty/bazel:map_msgs.BUILD",
+    strip_prefix = "navigation_msgs-2.1.0/map_msgs",
+    urls = ["https://github.com/ros-planning/navigation_msgs/archive/refs/tags/2.1.0.tar.gz"],
+)
+
+http_archive(
+    name = "bond_core",
+    build_file = "//3rdparty/bazel:bond_core.BUILD",
+    strip_prefix = "bond_core-4.1.4",
+    urls = ["https://github.com/ros/bond_core/archive/refs/tags/4.1.4.tar.gz"],
+)
+
+http_archive(
+    name = "laser_geometry",
+    build_file = "//3rdparty/bazel:laser_geometry.BUILD",
+    strip_prefix = "laser_geometry-2.4.1",
+    urls = ["https://github.com/ros-perception/laser_geometry/archive/refs/tags/2.4.1.tar.gz"],
+)
+
+http_archive(
+    name = "image_common",
+    build_file = "//3rdparty/bazel:image_transport.BUILD",
+    strip_prefix = "image_common-3.1.12/image_transport",
+    urls = ["https://github.com/ros-perception/image_common/archive/refs/tags/3.1.12.tar.gz"],
+)
+
+http_archive(
+    name = "vision_opencv",
+    build_file = "//3rdparty/bazel:cv_bridge.BUILD",
+    strip_prefix = "vision_opencv-3.2.1/cv_bridge",
+    urls = ["https://github.com/ros-perception/vision_opencv/archive/refs/tags/3.2.1.tar.gz"],
+)
+
+http_archive(
+    name = "behaviortree_cpp_v3",
+    build_file = "//3rdparty/bazel:behaviortree_cpp_v3.BUILD",
+    strip_prefix = "BehaviorTree.CPP-3.8.7",
+    urls = ["https://github.com/BehaviorTree/BehaviorTree.CPP/archive/refs/tags/3.8.7.tar.gz"],
+)
+
+http_archive(
+    name = "ompl",
+    build_file = "//3rdparty/bazel:ompl.BUILD",
+    strip_prefix = "ompl-1.7.0",
+    urls = ["https://github.com/ompl/ompl/archive/refs/tags/1.7.0.tar.gz"],
+)
+
 # 自前のシステムライブラリ定義
 load("//:system_sdk.bzl", "system_sdk_repo")
 

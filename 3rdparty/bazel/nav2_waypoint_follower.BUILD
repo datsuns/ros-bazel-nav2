@@ -15,8 +15,8 @@ COMMON_DEPS = [
     "@ros2_geometry2//:tf2_ros",
     "@nav2_core//:nav2_core",
     "@ros2_pluginlib//:pluginlib",
-    "@system_libs//:image_transport",
-    "@system_libs//:cv_bridge",
+    "@image_common//:image_transport",
+    "@vision_opencv//:cv_bridge",
     "@system_libs//:opencv",
 ]
 
