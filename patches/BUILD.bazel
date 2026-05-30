@@ -1,0 +1,5 @@
+filegroup(
+    name = "nav2_behavior_tree_fix_path_headers",
+    srcs = ["nav2_behavior_tree_fix_path_headers.patch"],
+    visibility = ["//visibility:public"],
+)

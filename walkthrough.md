@@ -103,3 +103,38 @@ ros2_cpp_binary(
   ライブラリの静的リンク化（`libmap_server_core.a`）により、単一バイナリ内でのシンボル解決が高速化され、ROS 2 コンポーネントおよび独立プロセスとしての挙動は colcon ビルド時と同等であることを確認しました。
 * **結論**:
   WORKSPACE 形式の Bazel 移行により、グローバルな ROS 環境変数セットアップやインストールの二重コピーを必要とせず、自己完結型のビルド・実行環境が実現できました。過不足検証の結果、動作上必要な生成物はすべて Bazel ビルド成果物内に確保されています。
+
+---
+
+## 6. フェーズ1 移行成果（非侵襲的マッピングの検証）
+
+移行計画のフェーズ1（および依存関係上先行してビルドが必要なパッケージ）について、外部 `BUILD` ファイルと `system_sdk.bzl` を使用した非侵襲的な移行を完了し、ビルド成功を確認しました。
+
+### 1) 実装された外部ビルド設定
+`src/navigation2` の内部ファイルを一切汚染しない（非侵襲的）よう、以下の設定ファイルをルートの `3rdparty/bazel/` に定義し、`WORKSPACE` 内で外部マッピングしました。
+
+* **`nav2_voxel_grid`** (`@nav2_voxel_grid//:voxel_grid`):
+  * [nav2_voxel_grid.BUILD](file:///workspaces/map_server/3rdparty/bazel/nav2_voxel_grid.BUILD) でビルド設定を定義。依存は `rclcpp` のみ。
+* **`nav_2d_msgs`** (`@nav_2d_msgs//:cpp_nav_2d_msgs`):
+  * [nav_2d_msgs.BUILD](file:///workspaces/map_server/3rdparty/bazel/nav_2d_msgs.BUILD) で定義。`geometry_msgs`, `std_msgs` に依存するインターフェースの自動生成。
+* **`dwb_msgs`** (`@dwb_msgs//:cpp_dwb_msgs`):
+  * [dwb_msgs.BUILD](file:///workspaces/map_server/3rdparty/bazel/dwb_msgs.BUILD) で定義。`nav_2d_msgs` や `nav_msgs` に依存するインターフェース生成。
+* **`nav2_costmap_2d`** (`@nav2_costmap_2d//:nav2_costmap_2d`):
+  * [nav2_costmap_2d.BUILD](file:///workspaces/map_server/3rdparty/bazel/nav2_costmap_2d.BUILD) で定義。複数の共有ライブラリ（`core`, `layers`, `filters`, `client`）と実行バイナリを全てビルド。
+  * `system_sdk.bzl` を拡張し、システム側の `Eigen3`, `laser_geometry` (C++), `map_msgs` (C++ & C typesupports), `angles` を解決。
+* **`nav2_core`** (`@nav2_core//:nav2_core`):
+  * [nav2_core.BUILD](file:///workspaces/map_server/3rdparty/bazel/nav2_core.BUILD) で定義。ヘッダーオンリーパッケージ。`nav2_costmap_2d` 等に依存。
+
+### 2) ビルド検証結果
+以下のビルドコマンドを実行し、すべてがコンテナ上で正常にビルド・リンクされることを検証しました。
+
+```bash
+# 各パッケージのビルド検証
+bazel build @nav2_voxel_grid//:voxel_grid
+bazel build @nav_2d_msgs//:cpp_nav_2d_msgs
+bazel build @dwb_msgs//:cpp_dwb_msgs
+bazel build @nav2_costmap_2d//:nav2_costmap_2d
+bazel build @nav2_core//:nav2_core
+```
+
+すべてのターゲットがエラーなく `Build completed successfully` に達し、元のソースコードを直接変更することなくクリーンにビルドが成功しています。

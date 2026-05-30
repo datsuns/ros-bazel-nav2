@@ -1,0 +1,41 @@
+load(
+    "@com_github_mvukov_rules_ros2//ros2:cc_defs.bzl",
+    "ros2_cpp_library",
+)
+
+ros2_cpp_library(
+    name = "dwb_critics",
+    srcs = [
+        "src/alignment_util.cpp",
+        "src/map_grid.cpp",
+        "src/goal_dist.cpp",
+        "src/path_dist.cpp",
+        "src/goal_align.cpp",
+        "src/path_align.cpp",
+        "src/base_obstacle.cpp",
+        "src/obstacle_footprint.cpp",
+        "src/oscillation.cpp",
+        "src/prefer_forward.cpp",
+        "src/rotate_to_goal.cpp",
+        "src/twirling.cpp",
+    ],
+    hdrs = glob(["include/dwb_critics/**/*.hpp"]),
+    includes = ["include"],
+    visibility = ["//visibility:public"],
+    deps = [
+        "@system_libs//:angles",
+        "@nav2_costmap_2d//:nav2_costmap_2d_core",
+        "@costmap_queue//:costmap_queue",
+        "@dwb_core//:dwb_core",
+        "@ros2_common_interfaces//:cpp_geometry_msgs",
+        "@ros2_common_interfaces//:c_geometry_msgs",
+        "@nav_2d_msgs//:cpp_nav_2d_msgs",
+        "@nav_2d_utils//:conversions",
+        "@nav_2d_utils//:path_ops",
+        "@nav_2d_utils//:tf_help",
+        "@ros2_pluginlib//:pluginlib",
+        "@ros2_rclcpp//:rclcpp",
+        "@ros2_common_interfaces//:cpp_sensor_msgs",
+        "@map_server_workspace//:nav2_util",
+    ],
+)
