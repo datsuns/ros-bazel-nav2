@@ -1,0 +1,115 @@
+--- a/nav2_util/src/base_footprint_publisher.hpp
++++ b/nav2_util/src/base_footprint_publisher.hpp
+@@ -32,36 +32,47 @@
+ {
+ 
+ /**
+- * @brief A TF2 listener that overrides the subscription callback
+- * to inject base footprint publisher removing Z, Pitch, and Roll for
+- * 3D state estimation but desiring a 2D frame for navigation, visualization, or other reasons
++ * @class nav2_util::BaseFootprintPublisher
++ * @brief Republishes the ``base_link`` frame as ``base_footprint``
++ * stripping away the Z, Roll, and Pitch of the full 3D state to provide
++ * a 2D projection for navigation when state estimation is full 3D
+  */
+-class BaseFootprintPublisherListener : public tf2_ros::TransformListener
++class BaseFootprintPublisher : public rclcpp::Node
+ {
+ public:
+-  BaseFootprintPublisherListener(tf2::BufferCore & buffer, bool spin_thread, rclcpp::Node & node)
+-  : tf2_ros::TransformListener(buffer, spin_thread)
++  /**
++   * @brief A constructor
++   */
++  explicit BaseFootprintPublisher(const rclcpp::NodeOptions & options = rclcpp::NodeOptions())
++  : Node("base_footprint_publisher", options)
+   {
+-    node.declare_parameter(
+-      "base_link_frame", rclcpp::ParameterValue(std::string("base_link")));
+-    node.declare_parameter(
++    RCLCPP_INFO(get_logger(), "Creating base footprint publisher");
++    declare_parameter("base_link_frame", rclcpp::ParameterValue(std::string("base_link")));
++    declare_parameter(
+       "base_footprint_frame", rclcpp::ParameterValue(std::string("base_footprint")));
+-    base_link_frame_ = node.get_parameter("base_link_frame").as_string();
+-    base_footprint_frame_ = node.get_parameter("base_footprint_frame").as_string();
+-    tf_broadcaster_ = std::make_shared<tf2_ros::TransformBroadcaster>(node);
++    base_link_frame_ = get_parameter("base_link_frame").as_string();
++    base_footprint_frame_ = get_parameter("base_footprint_frame").as_string();
++
++    tf_buffer_ = std::make_shared<tf2_ros::Buffer>(get_clock());
++    auto timer_interface = std::make_shared<tf2_ros::CreateTimerROS>(
++      get_node_base_interface(),
++      get_node_timers_interface());
++    tf_buffer_->setCreateTimerInterface(timer_interface);
++    tf_listener_ = std::make_shared<tf2_ros::TransformListener>(*tf_buffer_, this, false);
++    tf_broadcaster_ = std::make_shared<tf2_ros::TransformBroadcaster>(*this);
++
++    tf_subscription_ = create_subscription<tf2_msgs::msg::TFMessage>(
++      "/tf",
++      rclcpp::QoS(rclcpp::KeepLast(100)),
++      std::bind(&BaseFootprintPublisher::tfCallback, this, std::placeholders::_1));
+   }
+ 
++protected:
+   /**
+-   * @brief Overrides TF2 subscription callback to inject base footprint publisher
++   * @brief Callback for /tf messages to publish base_footprint
+    */
+-  void subscription_callback(tf2_msgs::msg::TFMessage::ConstSharedPtr msg, bool is_static) override
++  void tfCallback(const tf2_msgs::msg::TFMessage::ConstSharedPtr msg)
+   {
+-    TransformListener::subscription_callback(msg, is_static);
+-
+-    if (is_static) {
+-      return;
+-    }
+-
+     for (unsigned int i = 0; i != msg->transforms.size(); i++) {
+       auto & t = msg->transforms[i];
+       if (t.child_frame_id == base_link_frame_) {
+@@ -89,41 +100,13 @@
+     }
+   }
+ 
+-protected:
++  std::shared_ptr<tf2_ros::Buffer> tf_buffer_;
++  std::shared_ptr<tf2_ros::TransformListener> tf_listener_;
+   std::shared_ptr<tf2_ros::TransformBroadcaster> tf_broadcaster_;
++  rclcpp::Subscription<tf2_msgs::msg::TFMessage>::SharedPtr tf_subscription_;
+   std::string base_link_frame_, base_footprint_frame_;
+ };
+ 
+-/**
+- * @class nav2_util::BaseFootprintPublisher
+- * @brief Republishes the ``base_link`` frame as ``base_footprint``
+- * stripping away the Z, Roll, and Pitch of the full 3D state to provide
+- * a 2D projection for navigation when state estimation is full 3D
+- */
+-class BaseFootprintPublisher : public rclcpp::Node
+-{
+-public:
+-  /**
+-   * @brief A constructor
+-   */
+-  explicit BaseFootprintPublisher(const rclcpp::NodeOptions & options = rclcpp::NodeOptions())
+-  : Node("base_footprint_publisher", options)
+-  {
+-    RCLCPP_INFO(get_logger(), "Creating base footprint publisher");
+-    tf_buffer_ = std::make_shared<tf2_ros::Buffer>(get_clock());
+-    auto timer_interface = std::make_shared<tf2_ros::CreateTimerROS>(
+-      get_node_base_interface(),
+-      get_node_timers_interface());
+-    tf_buffer_->setCreateTimerInterface(timer_interface);
+-    listener_publisher_ = std::make_shared<BaseFootprintPublisherListener>(
+-      *tf_buffer_, true, *this);
+-  }
+-
+-protected:
+-  std::shared_ptr<tf2_ros::Buffer> tf_buffer_;
+-  std::shared_ptr<BaseFootprintPublisherListener> listener_publisher_;
+-};
+-
+ }  // end namespace nav2_util
+ 
+ #endif  // BASE_FOOTPRINT_PUBLISHER_HPP_

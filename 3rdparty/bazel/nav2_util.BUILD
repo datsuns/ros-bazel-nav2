@@ -1,5 +1,6 @@
 load(
     "@com_github_mvukov_rules_ros2//ros2:cc_defs.bzl",
+    "ros2_cpp_binary",
     "ros2_cpp_library",
 )
 
@@ -35,3 +36,29 @@ ros2_cpp_library(
     ],
 )
 
+ros2_cpp_binary(
+    name = "lifecycle_bringup",
+    srcs = ["src/lifecycle_bringup_commandline.cpp"],
+    visibility = ["//visibility:public"],
+    deps = [
+        ":nav2_util",
+        "@ros2_rclcpp//:rclcpp",
+    ],
+)
+
+ros2_cpp_binary(
+    name = "base_footprint_publisher",
+    srcs = [
+        "src/base_footprint_publisher.cpp",
+        "src/base_footprint_publisher.hpp",
+    ],
+    visibility = ["//visibility:public"],
+    deps = [
+        ":nav2_util",
+        "@ros2_rclcpp//:rclcpp",
+        "@ros2_geometry2//:cpp_tf2_msgs",
+        "@ros2_geometry2//:tf2_ros",
+        "@ros2_geometry2//:tf2",
+        "@ros2_geometry2//:cpp_tf2_geometry_msgs",
+    ],
+)

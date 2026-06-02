@@ -146,7 +146,10 @@ patched_local_repository(
     name = "nav2_util",
     path = "src/navigation2/nav2_util",
     build_file = "//3rdparty/bazel:nav2_util.BUILD",
-    patches = ["//patches:nav2_util_qos_fix.patch"],
+    patches = [
+        "//patches:nav2_util_qos_fix.patch",
+        "//patches:nav2_util_base_footprint_fix.patch",
+    ],
     patch_strip = 2,
 )
 
