@@ -1,10 +1,10 @@
 diff --git a/nav2_behavior_tree/include/nav2_behavior_tree/plugins/action/compute_path_through_poses_action.hpp b/nav2_behavior_tree/include/nav2_behavior_tree/plugins/action/compute_path_through_poses_action.hpp
-index f761069..5c17eaf 100644
+index ec79d03..f9076d1 100644
 --- a/nav2_behavior_tree/include/nav2_behavior_tree/plugins/action/compute_path_through_poses_action.hpp
 +++ b/nav2_behavior_tree/include/nav2_behavior_tree/plugins/action/compute_path_through_poses_action.hpp
-@@ -19,7 +19,7 @@
- #include <vector>
+@@ -20,7 +20,7 @@
  
+ #include "behaviortree_cpp/json_export.h"
  #include "nav2_msgs/action/compute_path_through_poses.hpp"
 -#include "nav_msgs/msg/path.h"
 +#include "nav_msgs/msg/path.hpp"
@@ -12,54 +12,71 @@ index f761069..5c17eaf 100644
  
  namespace nav2_behavior_tree
 diff --git a/nav2_behavior_tree/include/nav2_behavior_tree/plugins/action/compute_path_to_pose_action.hpp b/nav2_behavior_tree/include/nav2_behavior_tree/plugins/action/compute_path_to_pose_action.hpp
-index fc95daa..f0cf58f 100644
+index b28d3ef..c0df0e7 100644
 --- a/nav2_behavior_tree/include/nav2_behavior_tree/plugins/action/compute_path_to_pose_action.hpp
 +++ b/nav2_behavior_tree/include/nav2_behavior_tree/plugins/action/compute_path_to_pose_action.hpp
-@@ -18,7 +18,7 @@
- #include <string>
+@@ -19,7 +19,7 @@
  
+ #include "behaviortree_cpp/json_export.h"
  #include "nav2_msgs/action/compute_path_to_pose.hpp"
 -#include "nav_msgs/msg/path.h"
 +#include "nav_msgs/msg/path.hpp"
  #include "nav2_behavior_tree/bt_action_node.hpp"
  
  namespace nav2_behavior_tree
-diff --git a/nav2_behavior_tree/include/nav2_behavior_tree/plugins/action/compute_route_action.hpp b/nav2_behavior_tree/include/nav2_behavior_tree/plugins/action/compute_route_action.hpp
-index 52b99c0..4d3401e 100644
---- a/nav2_behavior_tree/include/nav2_behavior_tree/plugins/action/compute_route_action.hpp
-+++ b/nav2_behavior_tree/include/nav2_behavior_tree/plugins/action/compute_route_action.hpp
-@@ -18,7 +18,7 @@
- #include <string>
- 
- #include "nav2_msgs/action/compute_route.hpp"
--#include "nav_msgs/msg/path.h"
-+#include "nav_msgs/msg/path.hpp"
- #include "nav2_behavior_tree/bt_action_node.hpp"
- #include "nav2_util/lifecycle_node.hpp"
- 
 diff --git a/nav2_behavior_tree/include/nav2_behavior_tree/plugins/action/get_pose_from_path_action.hpp b/nav2_behavior_tree/include/nav2_behavior_tree/plugins/action/get_pose_from_path_action.hpp
-index 4715b0e..a3fb97b 100644
+index aa123ba..bb456c0 100644
 --- a/nav2_behavior_tree/include/nav2_behavior_tree/plugins/action/get_pose_from_path_action.hpp
 +++ b/nav2_behavior_tree/include/nav2_behavior_tree/plugins/action/get_pose_from_path_action.hpp
-@@ -23,7 +23,7 @@
- #include "nav2_util/geometry_utils.hpp"
+@@ -25,5 +25,5 @@
  #include "nav2_util/robot_utils.hpp"
- #include "behaviortree_cpp_v3/action_node.h"
+ #include "behaviortree_cpp/action_node.h"
+ #include "nav2_behavior_tree/json_utils.hpp"
 -#include "nav_msgs/msg/path.h"
 +#include "nav_msgs/msg/path.hpp"
  
  namespace nav2_behavior_tree
- {
 diff --git a/nav2_behavior_tree/include/nav2_behavior_tree/plugins/action/smooth_path_action.hpp b/nav2_behavior_tree/include/nav2_behavior_tree/plugins/action/smooth_path_action.hpp
-index 982f416..94b3219 100644
+index cc8293e..04cd82b 100644
 --- a/nav2_behavior_tree/include/nav2_behavior_tree/plugins/action/smooth_path_action.hpp
 +++ b/nav2_behavior_tree/include/nav2_behavior_tree/plugins/action/smooth_path_action.hpp
-@@ -19,7 +19,7 @@
- #include <string>
+@@ -20,7 +20,7 @@
  
+ #include "behaviortree_cpp/json_export.h"
  #include "nav2_msgs/action/smooth_path.hpp"
 -#include "nav_msgs/msg/path.h"
 +#include "nav_msgs/msg/path.hpp"
  #include "nav2_behavior_tree/bt_action_node.hpp"
  
  namespace nav2_behavior_tree
+diff --git a/nav2_behavior_tree/include/nav2_behavior_tree/bt_service_node.hpp b/nav2_behavior_tree/include/nav2_behavior_tree/bt_service_node.hpp
+index ec1405e..f09f029 100644
+--- a/nav2_behavior_tree/include/nav2_behavior_tree/bt_service_node.hpp
++++ b/nav2_behavior_tree/include/nav2_behavior_tree/bt_service_node.hpp
+@@ -72,7 +72,7 @@ public:
+     getInput("service_name", service_name_);
+     service_client_ = node_->create_client<ServiceT>(
+       service_name_,
+-      rclcpp::SystemDefaultsQoS(),
++      rclcpp::SystemDefaultsQoS().get_rmw_qos_profile(),
+       callback_group_);
+ 
+     // Make a request for the service without parameter
+diff --git a/nav2_behavior_tree/include/nav2_behavior_tree/bt_action_server_impl.hpp b/nav2_behavior_tree/include/nav2_behavior_tree/bt_action_server_impl.hpp
+index ec1405e..f09f029 100644
+--- a/nav2_behavior_tree/include/nav2_behavior_tree/bt_action_server_impl.hpp
++++ b/nav2_behavior_tree/include/nav2_behavior_tree/bt_action_server_impl.hpp
+@@ -141,5 +141,14 @@ bool BtActionServer<ActionT>::on_configure()
+   nav2_util::declare_parameter_if_not_declared(
+     node, "transform_tolerance", rclcpp::ParameterValue(0.1));
+-  rclcpp::copy_all_parameter_values(node, client_node_);
++  {
++    auto params = node->get_parameters(node->list_parameters({}, 0).names);
++    for (const auto & param : params) {
++      if (!client_node_->has_parameter(param.get_name())) {
++        client_node_->declare_parameter(param.get_name(), param.get_parameter_value());
++      } else {
++        client_node_->set_parameter(param);
++      }
++    }
++  }

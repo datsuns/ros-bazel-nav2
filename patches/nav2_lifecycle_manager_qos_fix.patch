@@ -1,0 +1,18 @@
+diff --git a/nav2_lifecycle_manager/src/lifecycle_manager.cpp b/nav2_lifecycle_manager/src/lifecycle_manager.cpp
+index 7a0709a..f0069b2 100644
+--- a/nav2_lifecycle_manager/src/lifecycle_manager.cpp
++++ b/nav2_lifecycle_manager/src/lifecycle_manager.cpp
+@@ -64,11 +64,11 @@ LifecycleManager::LifecycleManager(const rclcpp::NodeOptions & options)
+   manager_srv_ = create_service<ManageLifecycleNodes>(
+     get_name() + std::string("/manage_nodes"),
+     std::bind(&LifecycleManager::managerCallback, this, _1, _2, _3),
+-    rclcpp::SystemDefaultsQoS(),
++    rclcpp::SystemDefaultsQoS().get_rmw_qos_profile(),
+     callback_group_);
+ 
+   is_active_srv_ = create_service<std_srvs::srv::Trigger>(
+     get_name() + std::string("/is_active"),
+     std::bind(&LifecycleManager::isActiveCallback, this, _1, _2, _3),
+-    rclcpp::SystemDefaultsQoS(),
++    rclcpp::SystemDefaultsQoS().get_rmw_qos_profile(),
+     callback_group_);

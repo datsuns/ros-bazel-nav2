@@ -19,6 +19,7 @@ ros2_interface_library(
         "@ros2_rcl_interfaces//:action_msgs",
         "@ros2_rcl_interfaces//:builtin_interfaces",
         "@ros2_unique_identifier_msgs//:unique_identifier_msgs",
+        "@geographic_info//:geographic_msgs",
     ],
     visibility = ["//visibility:public"],
 )

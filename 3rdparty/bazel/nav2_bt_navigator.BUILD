@@ -18,7 +18,7 @@ COMMON_DEPS = [
     "@nav2_util//:nav2_util",
     "@nav2_core//:nav2_core",
     "@nav2_behavior_tree//:nav2_behavior_tree",
-    "@behaviortree_cpp_v3//:behaviortree_cpp_v3",
+    "@behaviortree_cpp//:behaviortree_cpp",
     "@ros2_geometry2//:tf2",
     "@ros2_geometry2//:tf2_ros",
     "@ros2_geometry2//:cpp_tf2_geometry_msgs",

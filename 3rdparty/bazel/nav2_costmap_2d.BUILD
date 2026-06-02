@@ -8,7 +8,6 @@ load(
 ros2_cpp_library(
     name = "nav2_costmap_2d_core",
     srcs = [
-        "src/array_parser.cpp",
         "src/costmap_2d.cpp",
         "src/layer.cpp",
         "src/layered_costmap.cpp",

@@ -18,6 +18,7 @@ COMMON_DEPS = [
     "@image_common//:image_transport",
     "@vision_opencv//:cv_bridge",
     "@system_libs//:opencv",
+    "@robot_localization//:cpp_robot_localization",
 ]
 
 # 1. waypoint_follower_core

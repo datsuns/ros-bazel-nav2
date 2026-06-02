@@ -1,5 +1,12 @@
+exports_files([
+    "nav2_behavior_tree_fix_path_headers.patch",
+    "nav2_util_qos_fix.patch",
+    "nav2_lifecycle_manager_qos_fix.patch",
+])
+
 filegroup(
     name = "nav2_behavior_tree_fix_path_headers",
     srcs = ["nav2_behavior_tree_fix_path_headers.patch"],
     visibility = ["//visibility:public"],
 )
+

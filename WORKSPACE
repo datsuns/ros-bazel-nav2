@@ -84,6 +84,15 @@ http_archive(
 )
 
 http_archive(
+    name = "geographic_info",
+    build_file = "//3rdparty/bazel:geographic_msgs.BUILD",
+    integrity = "sha256-euOFlRgWq95HBGOwt+0krV5Nzi2Mai8SDkLjN7ATrhg=",
+    strip_prefix = "geographic_info-1.0.6/geographic_msgs",
+    urls = ["https://github.com/ros-geographic-info/geographic_info/archive/refs/tags/1.0.6.tar.gz"],
+)
+
+
+http_archive(
     name = "image_common",
     build_file = "//3rdparty/bazel:image_transport.BUILD",
     strip_prefix = "image_common-3.1.12/image_transport",
@@ -98,10 +107,20 @@ http_archive(
 )
 
 http_archive(
-    name = "behaviortree_cpp_v3",
-    build_file = "//3rdparty/bazel:behaviortree_cpp_v3.BUILD",
-    strip_prefix = "BehaviorTree.CPP-3.8.7",
-    urls = ["https://github.com/BehaviorTree/BehaviorTree.CPP/archive/refs/tags/3.8.7.tar.gz"],
+    name = "robot_localization",
+    build_file = "//3rdparty/bazel:robot_localization.BUILD",
+    integrity = "sha256-iXEcfkhJ8GQ9BYnz/tFk8KzWbuks+X7IM2Q4SPOHK2k=",
+    strip_prefix = "robot_localization-3.5.4",
+    urls = ["https://github.com/cra-ros-pkg/robot_localization/archive/refs/tags/3.5.4.tar.gz"],
+)
+
+
+http_archive(
+    name = "behaviortree_cpp",
+    build_file = "//3rdparty/bazel:behaviortree_cpp.BUILD",
+    integrity = "sha256-sOflOyf+rolOLfPz+q391J8hCOvM+xvXzA1AX/xWzs0=",
+    strip_prefix = "BehaviorTree.CPP-4.6.2",
+    urls = ["https://github.com/BehaviorTree/BehaviorTree.CPP/archive/refs/tags/4.6.2.tar.gz"],
 )
 
 http_archive(
@@ -123,10 +142,12 @@ new_local_repository(
     build_file = "//3rdparty/bazel:nav2_msgs.BUILD",
 )
 
-new_local_repository(
+patched_local_repository(
     name = "nav2_util",
     path = "src/navigation2/nav2_util",
     build_file = "//3rdparty/bazel:nav2_util.BUILD",
+    patches = ["//patches:nav2_util_qos_fix.patch"],
+    patch_strip = 2,
 )
 
 new_local_repository(
@@ -177,10 +198,12 @@ new_local_repository(
     build_file = "//3rdparty/bazel:costmap_queue.BUILD",
 )
 
-new_local_repository(
+patched_local_repository(
     name = "nav2_lifecycle_manager",
     path = "src/navigation2/nav2_lifecycle_manager",
     build_file = "//3rdparty/bazel:nav2_lifecycle_manager.BUILD",
+    patches = ["//patches:nav2_lifecycle_manager_qos_fix.patch"],
+    patch_strip = 2,
 )
 
 new_local_repository(

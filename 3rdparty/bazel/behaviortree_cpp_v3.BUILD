@@ -1,5 +1,12 @@
 cc_library(
-    name = "behaviortree_cpp_v3",
+    name = "minitrace",
+    hdrs = glob(["3rdparty/minitrace/*.h"]),
+    strip_include_prefix = "3rdparty",
+)
+
+# Implementation library with original include paths (behaviortree_cpp_v3/...)
+cc_library(
+    name = "behaviortree_cpp_v3_impl",
     srcs = glob([
         "src/*.cpp",
         "src/actions/*.cpp",
@@ -15,7 +22,6 @@ cc_library(
     ]),
     hdrs = glob([
         "include/behaviortree_cpp_v3/**/*.h",
-        "3rdparty/minitrace/*.h",
     ]),
     includes = ["include", "3rdparty"],
     defines = [
@@ -27,8 +33,22 @@ cc_library(
         "-lzmq",
     ],
     deps = [
+        ":minitrace",
         "@system_libs//:boost",
+    ],
+    visibility = ["//visibility:private"],
+)
+
+# Public alias/wrapper library that exposes headers with the "behaviortree_cpp/" prefix
+cc_library(
+    name = "behaviortree_cpp_v3",
+    hdrs = glob([
+        "include/behaviortree_cpp_v3/**/*.h",
+    ]),
+    strip_include_prefix = "include/behaviortree_cpp_v3",
+    include_prefix = "behaviortree_cpp",
+    deps = [
+        ":behaviortree_cpp_v3_impl",
     ],
     visibility = ["//visibility:public"],
 )
-

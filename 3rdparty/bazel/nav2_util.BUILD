@@ -7,6 +7,7 @@ ros2_cpp_library(
     name = "nav2_util",
     srcs = [
         "src/costmap.cpp",
+        "src/array_parser.cpp",
         "src/node_utils.cpp",
         "src/lifecycle_service_client.cpp",
         "src/string_utils.cpp",
