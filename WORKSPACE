@@ -123,12 +123,6 @@ http_archive(
     urls = ["https://github.com/BehaviorTree/BehaviorTree.CPP/archive/refs/tags/4.6.2.tar.gz"],
 )
 
-http_archive(
-    name = "ompl",
-    build_file = "//3rdparty/bazel:ompl.BUILD",
-    strip_prefix = "ompl-1.7.0",
-    urls = ["https://github.com/ompl/ompl/archive/refs/tags/1.7.0.tar.gz"],
-)
 
 # 自前のシステムライブラリ定義
 load("//:system_sdk.bzl", "system_sdk_repo")
@@ -332,19 +326,53 @@ new_local_repository(
     build_file = "//3rdparty/bazel:nav2_bringup.BUILD",
 )
 
+# RViz2 Dependencies (Jazzy)
+http_archive(
+    name = "rviz",
+    build_file = "//3rdparty/bazel:rviz2.BUILD",
+    patches = [
+        "//3rdparty/bazel:patches/rviz_image_encodings.patch",
+        "//3rdparty/bazel:patches/rviz_gz_math.patch",
+        "//3rdparty/bazel:patches/rviz_ogre_plugin.patch",
+    ],
+    patch_args = ["-p1"],
+    strip_prefix = "rviz-jazzy",
+    urls = ["https://github.com/ros2/rviz/archive/refs/heads/jazzy.tar.gz"],
+)
 
+http_archive(
+    name = "pluginlib",
+    build_file = "//3rdparty/bazel:pluginlib.BUILD",
+    strip_prefix = "pluginlib-jazzy",
+    urls = ["https://github.com/ros/pluginlib/archive/refs/heads/jazzy.tar.gz"],
+)
 
+http_archive(
+    name = "point_cloud_transport",
+    build_file = "//3rdparty/bazel:point_cloud_transport.BUILD",
+    strip_prefix = "point_cloud_transport-humble/point_cloud_transport",
+    urls = ["https://github.com/ros-perception/point_cloud_transport/archive/refs/heads/humble.tar.gz"],
+)
 
+http_archive(
+    name = "resource_retriever",
+    build_file = "//3rdparty/bazel:resource_retriever.BUILD",
+    strip_prefix = "resource_retriever-jazzy",
+    urls = ["https://github.com/ros/resource_retriever/archive/refs/heads/jazzy.tar.gz"],
+)
 
+http_archive(
+    name = "interactive_markers",
+    build_file = "//3rdparty/bazel:interactive_markers.BUILD",
+    patches = ["//3rdparty/bazel:patches/interactive_markers_qos.patch"],
+    patch_args = ["-p1"],
+    strip_prefix = "interactive_markers-ros2",
+    urls = ["https://github.com/ros-visualization/interactive_markers/archive/refs/heads/ros2.tar.gz"],
+)
 
-
-
-
-
-
-
-
-
-
-
-
+http_archive(
+    name = "urdf",
+    build_file = "//3rdparty/bazel:urdf.BUILD",
+    strip_prefix = "urdf-jazzy",
+    urls = ["https://github.com/ros2/urdf/archive/refs/heads/jazzy.tar.gz"],
+)

@@ -1,1 +1,2 @@
 # Empty BUILD file to mark 3rdparty/bazel as a package.
+exports_files(glob(["patches/*.patch"]))

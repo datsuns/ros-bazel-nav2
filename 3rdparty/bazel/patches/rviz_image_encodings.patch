@@ -1,0 +1,13 @@
+--- a/rviz_default_plugins/src/rviz_default_plugins/displays/image/ros_image_texture.cpp
++++ b/rviz_default_plugins/src/rviz_default_plugins/displays/image/ros_image_texture.cpp
+@@ -147,8 +147,8 @@
+ {
+   namespace enc = sensor_msgs::image_encodings;
+   if (encoding == enc::YUV422 || encoding == enc::YUV422_YUY2 ||
+-    encoding == enc::UYVY || encoding == enc::YUYV ||
+-    encoding == enc::NV21 || encoding == enc::NV24)
++    encoding == "uyvy" || encoding == "yuyv" ||
++    encoding == "nv21" || encoding == "nv24")
+   {
+     return 0;
+   }

@@ -21,7 +21,7 @@ COMMON_DEPS = [
     "@ros2_pluginlib//:pluginlib",
     "@angles//:angles",
     "@system_libs//:eigen",
-    "@ompl//:ompl",
+    "@system_libs//:ompl",
 ]
 
 SRC_FILES = [

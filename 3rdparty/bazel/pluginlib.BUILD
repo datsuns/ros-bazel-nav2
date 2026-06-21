@@ -1,0 +1,14 @@
+load("@com_github_mvukov_rules_ros2//ros2:cc_defs.bzl", "ros2_cpp_library")
+
+ros2_cpp_library(
+    name = "pluginlib",
+    hdrs = glob(["pluginlib/include/**/*.hpp"]),
+    includes = ["pluginlib/include"],
+    visibility = ["//visibility:public"],
+    deps = [
+        "@ros2_ament_index//:ament_index_cpp",
+        "@ros2_class_loader//:class_loader",
+        "@ros2_rcpputils//:rcpputils",
+        "@system_libs//:tinyxml2",
+    ],
+)

@@ -17,9 +17,16 @@
   "runArgs": [
     "--network=host",
     "--ipc=host",
-    "--pid=host"
+    "--pid=host",
+    "--volume=/tmp/.X11-unix:/tmp/.X11-unix:rw",
+    "--volume=/mnt/wslg:/mnt/wslg",
+    "--device=/dev/dxg"
   ],
   "containerEnv": {
-    "ROS_DISTRO": "humble"
+    "ROS_DISTRO": "humble",
+    "DISPLAY": "${localEnv:DISPLAY}",
+    "WAYLAND_DISPLAY": "${localEnv:WAYLAND_DISPLAY}",
+    "XDG_RUNTIME_DIR": "${localEnv:XDG_RUNTIME_DIR}",
+    "PULSE_SERVER": "${localEnv:PULSE_SERVER}"
   }
 }

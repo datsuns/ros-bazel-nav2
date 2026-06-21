@@ -24,12 +24,15 @@ ros2_cpp_library(
     srcs = [
         "src/collision_monitor_node.cpp",
         "src/polygon.cpp",
+        "src/polygon_source.cpp",
+        "src/velocity_polygon.cpp",
         "src/circle.cpp",
         "src/source.cpp",
         "src/scan.cpp",
         "src/pointcloud.cpp",
         "src/range.cpp",
         "src/kinematics.cpp",
+        "src/collision_detector_node.cpp",
     ],
     hdrs = glob(["include/nav2_collision_monitor/**/*.hpp"]),
     includes = ["include"],
@@ -40,7 +43,16 @@ ros2_cpp_library(
 # 2. Executable
 ros2_cpp_binary(
     name = "collision_monitor",
-    srcs = ["src/main.cpp"],
+    srcs = ["src/collision_monitor_main.cpp"],
+    visibility = ["//visibility:public"],
+    deps = COMMON_DEPS + [
+        ":collision_monitor_core",
+    ],
+)
+
+ros2_cpp_binary(
+    name = "collision_detector",
+    srcs = ["src/collision_detector_main.cpp"],
     visibility = ["//visibility:public"],
     deps = COMMON_DEPS + [
         ":collision_monitor_core",

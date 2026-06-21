@@ -9,3 +9,4 @@
 # Agent directory
 /.agents/
 
+tmp/

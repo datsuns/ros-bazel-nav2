@@ -1,0 +1,17 @@
+Computing main repo mapping: 
+Loading: 
+Loading: 0 packages loaded
+Analyzing: target @@rviz//:rviz2 (0 packages loaded, 0 targets configured)
+Analyzing: target @@rviz//:rviz2 (0 packages loaded, 0 targets configured)
+
+INFO: Analyzed target @@rviz//:rviz2 (0 packages loaded, 0 targets configured).
+INFO: Found 1 target...
+Target @@rviz//:rviz2 up-to-date:
+  bazel-bin/external/rviz/rviz2
+INFO: Elapsed time: 0.465s, Critical Path: 0.01s
+INFO: 1 process: 1 internal.
+INFO: Build completed successfully, 1 total action
+INFO: Running command line: bazel-bin/external/rviz/rviz2
+QStandardPaths: XDG_RUNTIME_DIR not set, defaulting to '/tmp/runtime-ros'
+terminate called after throwing an instance of 'Ogre::InternalErrorException'
+  what():  InternalErrorException: Could not load dynamic library /opt/rviz_ogre_vendor/lib/OGRE/RenderSystem_GL.  System Error: /opt/rviz_ogre_vendor/lib/OGRE/RenderSystem_GL.so.1.12.10: cannot open shared object file: No such file or directory in DynLib::load at ./OgreMain/src/OgreDynLib.cpp (line 113)
